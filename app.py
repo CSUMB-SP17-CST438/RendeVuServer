@@ -13,8 +13,8 @@ def not_found(error):
 
 @app.route('/api/v1.0/postInfo', methods=['POST'])
 def create_task():
-    print "someone pinged this"
-    print request.json
+    log("someone pinged the api")
+    log(request.json)
     
     #if the json data does not have the 'usedID' header
     #it will return a 400
@@ -32,6 +32,11 @@ def create_task():
 @app.route('/')
 def hello():
     return "Hello world", 200
+
+def log(message):  # simple wrapper for logging to stdout on heroku
+    print str(message)
+    sys.stdout.flush()
+
 
 if __name__ == '__main__':
     app.run(
