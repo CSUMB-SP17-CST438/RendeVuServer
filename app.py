@@ -2,10 +2,19 @@ import os
 import sys
 import json
 import requests
+import flask_sqlalchemy
 import time
 from flask import Flask, render_template, request, jsonify, abort, make_response
 
 app = Flask(__name__)
+
+#for heroku
+app.config['SQLALCHEMY_DATABASE_URI'] = app.os.getenv('DATABASE_URL')
+# app.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
+
+db = flask_sqlalchemy.SQLAlchemy(app)
+
+import models
 
 @app.errorhandler(404)
 def not_found(error):
@@ -26,6 +35,14 @@ def create_task():
         'longitude': request.json['longitude'],
         'timestamp' : request.json['timestamp']
     }
+    
+    new_location = models.Location(userData['userID'], 
+                            userData['latitude'], 
+                            userData['longitude'], 
+                            userData['timestamp']
+    )
+    models.db.session.add(new_location)
+    models.db.session.commit()
     #tasks.append(task)
     return jsonify({'data': locationData}), 200
     
@@ -39,12 +56,23 @@ def signup():
     if not request.json or not 'userID' in request.json:
         abort(400)
     userData = {
-        'fistName': request.json['fistName'],
+        'userID': request.json['userID'],
+        'firstName': request.json['firstName'],
         'lastName': request.json['lastName'],
         'email': request.json['email'],
         'phoneNumber': request.json['phoneNumber'],
         'timestamp' : request.json['timestamp']
     }
+    
+    new_user = models.Users(userData['userID'], 
+                            userData['firstName'], 
+                            userData['lastName'], 
+                            userData['email'],
+                            userData['phoneNumber'],
+                            userData['timestamp']
+    )
+    models.db.session.add(new_user)
+    models.db.session.commit()
     #tasks.append(task)
     return jsonify({'data': userData}), 200
 
