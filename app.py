@@ -28,6 +28,25 @@ def create_task():
     }
     #tasks.append(task)
     return jsonify({'data': locationData}), 200
+    
+@app.route('/api/v1.0/signup', methods=['POST'])
+def signup():
+    log("someone pinged the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    locationData = {
+        'fistName': request.json['fistName'],
+        'lastName': request.json['lastName'],
+        'email': request.json['email'],
+        'phoneNumber': request.json['phoneNumber'],
+        'timestamp' : request.json['timestamp']
+    }
+    #tasks.append(task)
+    return jsonify({'data': locationData}), 200
 
 @app.route('/')
 def hello():
