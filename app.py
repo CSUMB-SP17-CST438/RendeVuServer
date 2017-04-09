@@ -38,7 +38,7 @@ def signup():
     #it will return a 400
     if not request.json or not 'userID' in request.json:
         abort(400)
-    locationData = {
+    userData = {
         'fistName': request.json['fistName'],
         'lastName': request.json['lastName'],
         'email': request.json['email'],
@@ -46,7 +46,7 @@ def signup():
         'timestamp' : request.json['timestamp']
     }
     #tasks.append(task)
-    return jsonify({'data': locationData}), 200
+    return jsonify({'data': userData}), 200
 
 @app.route('/')
 def hello():
