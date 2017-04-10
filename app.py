@@ -75,6 +75,37 @@ def signup():
     models.db.session.commit()
     #tasks.append(task)
     return jsonify({'data': userData}), 200
+    
+@app.route('/api/v1.0/login', methods=['POST'])
+def signup():
+    log("someone pinged the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    userData = {
+        'userID': request.json['userID'],
+    }
+    
+    user_ids = []
+    message = models.Users.query.with_entities(models.Users.user_id).all()
+    
+    for theId in message:
+        print theId[0]
+        user_ids.append(str(theId[0]))
+    
+    if str(userData['userID']) in user_ids:
+        userSignedUp = {
+            'userID': 'true'
+        }
+    else:
+        userSignedUp = {
+            'userID': 'false'
+        }
+    #tasks.append(task)
+    return jsonify({'data': userSignedUp}), 200
 
 @app.route('/')
 def hello():
