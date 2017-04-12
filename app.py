@@ -77,7 +77,7 @@ def signup():
     return jsonify({'data': userData}), 200
     
 @app.route('/api/v1.0/login', methods=['POST'])
-def signup():
+def login():
     log("someone pinged the api")
     log(request.json)
     
