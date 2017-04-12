@@ -106,7 +106,7 @@ def login():
     #         'userID': 'false'
     #     }
     # #tasks.append(task)
-    return jsonify({'data': {'userID': 'false'}}), 200
+    return jsonify({'data': {'userID': 'true'}}), 200
 
 @app.route('/')
 def hello():
