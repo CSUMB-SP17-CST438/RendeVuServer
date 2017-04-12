@@ -22,7 +22,7 @@ def not_found(error):
 
 @app.route('/api/v1.0/postInfo', methods=['POST'])
 def create_task():
-    log("someone pinged the api")
+    log("someone pinged the postInfo api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -48,7 +48,7 @@ def create_task():
     
 @app.route('/api/v1.0/signup', methods=['POST'])
 def signup():
-    log("someone pinged the api")
+    log("someone pinged signup api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -79,7 +79,7 @@ def signup():
     
 @app.route('/api/v1.0/login', methods=['POST'])
 def login():
-    log("someone pinged the api")
+    log("someone pinged login the api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
