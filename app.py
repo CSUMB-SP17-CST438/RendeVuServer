@@ -61,7 +61,8 @@ def signup():
         'lastName': request.json['lastName'],
         'email': request.json['email'],
         'phoneNumber': request.json['phoneNumber'],
-        'timestamp' : request.json['timestamp']
+        'timestamp' : request.json['timestamp'],
+        'imgURL' : request.json['imgURL'],
     }
     
     # new_user = models.Users(userData['userID'], 
@@ -105,7 +106,7 @@ def login():
     #         'userID': 'false'
     #     }
     # #tasks.append(task)
-    return jsonify({'data': {'userID': 'false'}}), 200
+    return jsonify({'data': {'userID': 'true'}}), 200
 
 @app.route('/')
 def hello():
