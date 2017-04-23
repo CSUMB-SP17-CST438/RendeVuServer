@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from twilio.rest import TwilioRestClient
+from twilio.rest import Client
 from django.core.exceptions import MiddlewareNotUsed
 import os
 import logging
