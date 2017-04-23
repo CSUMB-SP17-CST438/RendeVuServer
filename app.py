@@ -5,7 +5,7 @@ import requests
 import flask_sqlalchemy
 import time
 from flask import Flask, render_template, request, jsonify, abort, make_response
-
+import middleware
 app = Flask(__name__)
 
 #for heroku
@@ -13,6 +13,10 @@ app = Flask(__name__)
 # app.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
 
 db = flask_sqlalchemy.SQLAlchemy(app)
+
+# for twilio
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
 
 #import models
 
@@ -107,6 +111,28 @@ def login():
     #     }
     # #tasks.append(task)
     return jsonify({'data': {'userID': 'true'}}), 200
+
+@app.route('/api/v1.0/send', methods=['POST'])
+def send():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    userData = {
+        'userID': request.json['userID'],
+        'number': request.json['number'],
+        'message': request.json['message']
+    }
+    
+    message = userData['message']
+    message = "test"
+    
+    client = middleware.TwilioRestClient(account_sid,auth_token)
+    message = client.messages.create(to="+18314285108", from_="+18313461202", body=message)
+    return 200
 
 @app.route('/')
 def hello():
