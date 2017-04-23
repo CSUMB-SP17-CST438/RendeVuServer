@@ -18,6 +18,9 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 account_sid = os.getenv("account_sid")
 auth_token = os.getenv("auth_token")
 
+client = middleware.TwilioRestClient(account_sid,auth_token)
+message = client.messages.create(to="+18314285108", from_="+18313461202", body="hi")
+
 #import models
 
 @app.errorhandler(404)
@@ -130,8 +133,7 @@ def send():
     message = userData['message']
     message = "test"
     
-    client = middleware.TwilioRestClient(account_sid,auth_token)
-    message = client.messages.create(to="+18314285108", from_="+18313461202", body=message)
+
     return 200
 
 @app.route('/')
