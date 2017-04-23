@@ -17,7 +17,7 @@ TWILIO_AUTH_TOKEN or TWILIO_NUMBER missing"""
 
 
 def load_admins_file():
-    with open('administrators.json') as adminsFile:
+    with open('config/administrators.json') as adminsFile:
         admins = json.load(adminsFile)
         return admins
 
@@ -40,7 +40,7 @@ class MessageClient(object):
          twilio_auth_token) = load_twilio_config()
 
         self.twilio_number = twilio_number
-        self.twilio_client = TwilioRestClient(twilio_account_sid,
+        self.twilio_client = Client(twilio_account_sid,
                                               twilio_auth_token)
 
     def send_message(self, body, to):
