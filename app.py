@@ -5,7 +5,8 @@ import requests
 import flask_sqlalchemy
 import time
 from flask import Flask, render_template, request, jsonify, abort, make_response
-import middleware
+
+from twilio.rest import Client
 app = Flask(__name__)
 
 #for heroku
@@ -18,9 +19,18 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 account_sid = os.getenv("account_sid")
 auth_token = os.getenv("auth_token")
 
-client = middleware.TwilioRestClient(account_sid,auth_token)
-message = client.messages.create(to="+18314285108", from_="+18313461202", body="hi")
 
+
+
+
+
+# Find these values at https://twilio.com/user/account
+
+client = Client(account_sid, auth_token)
+
+message = client.api.account.messages.create(to="+18314285108",
+                                             from_="+18313461202",
+                                             body="Hello there!")
 #import models
 
 @app.errorhandler(404)
