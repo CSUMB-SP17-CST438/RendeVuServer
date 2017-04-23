@@ -19,6 +19,3 @@ numpy
 Django==1.8
 twilio
 whitenoise
-
-# Production dependencies
-gunicorn
