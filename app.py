@@ -28,9 +28,9 @@ auth_token = os.getenv("auth_token")
 
 client = Client(account_sid, auth_token)
 # 
-message = client.api.account.messages.create(to="+18314285108",
-                                             from_="+18313461202",
-                                             body="Hello there!")
+# message = client.api.account.messages.create(to="+18314285108",
+#                                              from_="+18313461202",
+#                                              body="Hello there!")
 #import models
 
 @app.errorhandler(404)
