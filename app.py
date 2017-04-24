@@ -191,30 +191,6 @@ def endDate():
     
     return 200
     
-@app.route('/api/v1.0/endDate', methods=['POST'])
-def endDate():
-    log("someone pinged login the api")
-    log(request.json)
-    
-    #if the json data does not have the 'usedID' header
-    #it will return a 400
-    if not request.json or not 'userID' in request.json:
-        abort(400)
-    
-    userData = {
-        'userID': request.json['userID'],
-    }
-    
-    client.messages.create(
-    to="+18314285108",
-    from_="+18313461202",
-    body="This is the ship that made the Kessel Run in fourteen parsecs?")
-    
-    message = userData['message']
-    message = "this user has not contacted us with in the last 30min"
-    
-    return 200
-
 @app.route('/api/v1.0/emergency', methods=['POST'])
 def emergency():
     log("someone pinged login the api")
