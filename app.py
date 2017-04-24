@@ -187,7 +187,7 @@ def send():
         userID = request.json['userID']
         
         models.Pay.query.filter_by(userID=request.json['userID']).delete()
-        models.db.session.commit()
+        # models.db.session.commit()
     
     return 200
     
