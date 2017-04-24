@@ -28,10 +28,10 @@ auth_token = os.getenv("auth_token")
 
 client = Client(account_sid, auth_token)
 
-client.messages.create(
-    to="+18314285108",
-    from_="+18313461202",
-    body="This is the ship that made the Kessel Run in fourteen parsecs?")
+# client.messages.create(
+#     to="+18314285108",
+#     from_="+18313461202",
+#     body="This is the ship that made the Kessel Run in fourteen parsecs?")
 
 #import models
 
@@ -52,7 +52,7 @@ def create_task():
         'userID': request.json['userID'],
         'latitude': request.json['latitude'],
         'longitude': request.json['longitude'],
-        'timestamp' : request.json['timestamp']
+        'timestamp' : str(int(time.time()))
     }
     
     # new_location = models.Location(userData['userID'], 
@@ -136,16 +136,83 @@ def send():
     #it will return a 400
     if not request.json or not 'userID' in request.json:
         abort(400)
+    
     userData = {
         'userID': request.json['userID'],
-        'number': request.json['number'],
-        'message': request.json['message']
     }
     
+    client.messages.create(
+    to="+18314285108",
+    from_="+18313461202",
+    body="This is the ship that made the Kessel Run in fourteen parsecs?")
+    
     message = userData['message']
-    message = "test"
+    message = "this user has not contacted us with in the last 30min"
+    
+    return 200
+    
+@app.route('/api/v1.0/startDate', methods=['POST'])
+def send():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
     
 
+        userID = request.json['userID']
+        
+        chaps = request.json['userID']['chap']
+        ts = str(int(time.time()))
+        for chap in chaps:
+            chap = models.Chap(userID, chap['name'], chap['number'], ts)
+            models.db.session.add(chaps)
+         
+        #  models.db.session.commit()
+    
+    return 200
+    
+@app.route('/api/v1.0/endDate', methods=['POST'])
+def send():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+        userID = request.json['userID']
+        
+        models.Pay.query.filter_by(userID=request.json['userID']).delete()
+        models.db.session.commit()
+    
+    return 200
+    
+@app.route('/api/v1.0/endDate', methods=['POST'])
+def send():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+    userData = {
+        'userID': request.json['userID'],
+    }
+    
+    client.messages.create(
+    to="+18314285108",
+    from_="+18313461202",
+    body="This is the ship that made the Kessel Run in fourteen parsecs?")
+    
+    message = userData['message']
+    message = "this user has not contacted us with in the last 30min"
+    
     return 200
 
 @app.route('/')
