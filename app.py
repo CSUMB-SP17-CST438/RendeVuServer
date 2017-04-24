@@ -166,9 +166,9 @@ def send():
         
         chaps = request.json['userID']['chap']
         ts = str(int(time.time()))
-        for chap in chaps:
-            chap = models.Chap(userID, chap['name'], chap['number'], ts)
-            models.db.session.add(chaps)
+        # for chap in chaps:
+        #     chap = models.Chap(userID, chap['name'], chap['number'], ts)
+        #     models.db.session.add(chaps)
          
         #  models.db.session.commit()
     
@@ -186,7 +186,7 @@ def send():
     
         userID = request.json['userID']
         
-        models.Pay.query.filter_by(userID=request.json['userID']).delete()
+        #models.Pay.query.filter_by(userID=request.json['userID']).delete()
         # models.db.session.commit()
     
     return 200
