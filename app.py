@@ -215,6 +215,37 @@ def send():
     
     return 200
 
+@app.route('/api/v1.0/emergency', methods=['POST'])
+def send():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+    userData = {
+        'userID': request.json['userID'],
+    }
+    
+    # message = userData['message']
+    # message = "this user has not contacted us with in the last 30min"
+    
+    # chapsInDB = models.Users.query.filter(models.Chap.userID.startswith(userID)).all()
+    
+    # for number in numbers
+    
+        # message = user + "Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+        # client.messages.create(
+        # to="+1"+number,
+        # from_="+18313461202",
+        # body=message)
+    
+    
+    
+    return 200
+
 @app.route('/')
 def hello():
     return "Hello world", 200
