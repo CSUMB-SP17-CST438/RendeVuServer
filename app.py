@@ -152,7 +152,7 @@ def send():
     return 200
     
 @app.route('/api/v1.0/startDate', methods=['POST'])
-def send():
+def startDate():
     log("someone pinged login the api")
     log(request.json)
     
@@ -175,7 +175,7 @@ def send():
     return 200
     
 @app.route('/api/v1.0/endDate', methods=['POST'])
-def send():
+def endDate():
     log("someone pinged login the api")
     log(request.json)
     
@@ -192,7 +192,7 @@ def send():
     return 200
     
 @app.route('/api/v1.0/endDate', methods=['POST'])
-def send():
+def endDate():
     log("someone pinged login the api")
     log(request.json)
     
@@ -216,7 +216,7 @@ def send():
     return 200
 
 @app.route('/api/v1.0/emergency', methods=['POST'])
-def send():
+def emergency():
     log("someone pinged login the api")
     log(request.json)
     
