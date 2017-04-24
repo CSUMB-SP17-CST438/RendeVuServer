@@ -165,7 +165,7 @@ def startDate():
         userID = request.json['userID']
         
         chaps = request.json['userID']['chap']
-        ts = str(int(time.time()))
+        #ts = str(int(time.time()))
         # for chap in chaps:
         #     chap = models.Chap(userID, chap['name'], chap['number'], ts)
         #     models.db.session.add(chaps)
