@@ -10,7 +10,7 @@ from twilio.rest import Client
 app = Flask(__name__)
 
 #for heroku
-app.config['SQLALCHEMY_DATABASE_URI'] = app.os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
 
 db = flask_sqlalchemy.SQLAlchemy(app)
