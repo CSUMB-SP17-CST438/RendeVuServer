@@ -6,6 +6,7 @@ import flask_sqlalchemy
 import time
 from flask import Flask, render_template, request, jsonify, abort, make_response
 
+from twilio.rest import Client
 app = Flask(__name__)
 
 #for heroku
@@ -13,6 +14,24 @@ app = Flask(__name__)
 # app.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
 
 db = flask_sqlalchemy.SQLAlchemy(app)
+
+# for twilio
+account_sid = os.getenv("account_sid")
+auth_token = os.getenv("auth_token")
+
+
+
+
+
+
+# Find these values at https://twilio.com/user/account
+
+client = Client(account_sid, auth_token)
+
+# client.messages.create(
+#     to="+18314285108",
+#     from_="+18313461202",
+#     body="This is the ship that made the Kessel Run in fourteen parsecs?")
 
 #import models
 
@@ -33,7 +52,7 @@ def create_task():
         'userID': request.json['userID'],
         'latitude': request.json['latitude'],
         'longitude': request.json['longitude'],
-        'timestamp' : request.json['timestamp']
+        'timestamp' : str(int(time.time()))
     }
     
     # new_location = models.Location(userData['userID'], 
@@ -107,6 +126,101 @@ def login():
     #     }
     # #tasks.append(task)
     return jsonify({'data': {'userID': 'true'}}), 200
+
+@app.route('/api/v1.0/send', methods=['POST'])
+def send():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+    userData = {
+        'userID': request.json['userID'],
+    }
+    
+    client.messages.create(
+    to="+18314285108",
+    from_="+18313461202",
+    body="This is the ship that made the Kessel Run in fourteen parsecs?")
+    
+    message = userData['message']
+    message = "this user has not contacted us with in the last 30min"
+    
+    return 200
+    
+@app.route('/api/v1.0/startDate', methods=['POST'])
+def startDate():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+
+        userID = request.json['userID']
+        
+        chaps = request.json['userID']['chap']
+        #ts = str(int(time.time()))
+        # for chap in chaps:
+        #     chap = models.Chap(userID, chap['name'], chap['number'], ts)
+        #     models.db.session.add(chaps)
+         
+        #  models.db.session.commit()
+    
+    return 200
+    
+@app.route('/api/v1.0/endDate', methods=['POST'])
+def endDate():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+        userID = request.json['userID']
+        
+        #models.Pay.query.filter_by(userID=request.json['userID']).delete()
+        # models.db.session.commit()
+    
+    return 200
+    
+@app.route('/api/v1.0/emergency', methods=['POST'])
+def emergency():
+    log("someone pinged login the api")
+    log(request.json)
+    
+    #if the json data does not have the 'usedID' header
+    #it will return a 400
+    if not request.json or not 'userID' in request.json:
+        abort(400)
+    
+    userData = {
+        'userID': request.json['userID'],
+    }
+    
+    # message = userData['message']
+    # message = "this user has not contacted us with in the last 30min"
+    
+    # chapsInDB = models.Users.query.filter(models.Chap.userID.startswith(userID)).all()
+    
+    # for number in numbers
+    
+        # message = user + "Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+        # client.messages.create(
+        # to="+1"+number,
+        # from_="+18313461202",
+        # body=message)
+    
+    
+    
+    return 200
 
 @app.route('/')
 def hello():
