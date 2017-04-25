@@ -10,8 +10,8 @@ from twilio.rest import Client
 app = Flask(__name__)
 
 #for heroku
-#app.config['SQLALCHEMY_DATABASE_URI'] = app.os.getenv('DATABASE_URL')
-# app.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = app.os.getenv('DATABASE_URL')
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
 
 db = flask_sqlalchemy.SQLAlchemy(app)
 
@@ -26,7 +26,7 @@ auth_token = os.getenv("auth_token")
 
 # Find these values at https://twilio.com/user/account
 
-client = Client(account_sid, auth_token)
+#client = Client(account_sid, auth_token)
 
 # client.messages.create(
 #     to="+18314285108",
