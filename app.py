@@ -225,6 +225,18 @@ def emergency():
     from_="+18313461202",
     body=message)
     
+    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    client.messages.create(
+    to="+1"+"4152839158",
+    from_="+18313461202",
+    body=message)
+    
+    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    client.messages.create(
+    to="+1"+"5037537079",
+    from_="+18313461202",
+    body=message)
+    
     return 200
 
 @app.route('/')
