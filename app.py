@@ -6,11 +6,11 @@ import flask_sqlalchemy
 import time
 from flask import Flask, render_template, request, jsonify, abort, make_response
 
-from twilio.rest import Client
+#from twilio.rest import Client
 app = Flask(__name__)
 
 #for heroku
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+#app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
 
 db = flask_sqlalchemy.SQLAlchemy(app)
@@ -26,7 +26,7 @@ auth_token = os.getenv("auth_token")
 
 # Find these values at https://twilio.com/user/account
 
-client = Client(account_sid, auth_token)
+#client = Client(account_sid, auth_token)
 
 # client.messages.create(
 #     to="+18314285108",
@@ -212,11 +212,13 @@ def emergency():
     
     # for number in numbers
     
-    message = request.json['userID'] + "Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"6197345766",
-    from_="+18313461202",
-    body=message)
+        # message = user + "Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+        # client.messages.create(
+        # to="+1"+number,
+        # from_="+18313461202",
+        # body=message)
+    
+    
     
     return 200
 
