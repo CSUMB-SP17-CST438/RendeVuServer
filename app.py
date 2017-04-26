@@ -141,10 +141,10 @@ def send():
         'userID': request.json['userID'],
     }
     
-    client.messages.create(
-    to="+18314285108",
-    from_="+18313461202",
-    body="This is the ship that made the Kessel Run in fourteen parsecs?")
+    # client.messages.create(
+    # to="+18314285108",
+    # from_="+18313461202",
+    # body="This is the ship that made the Kessel Run in fourteen parsecs?")
     
     message = userData['message']
     message = "this user has not contacted us with in the last 30min"
@@ -153,7 +153,7 @@ def send():
     
 @app.route('/api/v1.0/startDate', methods=['POST'])
 def startDate():
-    log("someone pinged login the api")
+    log("someone pinged startDate the api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -176,7 +176,7 @@ def startDate():
     
 @app.route('/api/v1.0/endDate', methods=['POST'])
 def endDate():
-    log("someone pinged login the api")
+    log("someone pinged the endDate api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -193,7 +193,7 @@ def endDate():
     
 @app.route('/api/v1.0/emergency', methods=['POST'])
 def emergency():
-    log("someone pinged login the api")
+    log("someone pinged the emergency api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -217,9 +217,6 @@ def emergency():
         # to="+1"+number,
         # from_="+18313461202",
         # body=message)
-    
-    
-    
     return 200
 
 @app.route('/')
