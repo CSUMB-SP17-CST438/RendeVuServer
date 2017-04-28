@@ -117,7 +117,7 @@ def login():
         
         for key,val in d.iteritems():
             for a in val:
-                log("chaperone "+chapCount+": "+a['name'])
+                log("chaperone "+str(chapCount)+": "+a['name'])
                 log("phone number: "+a['phone_number'])
                 chapCount = chapCount + 1
                 
