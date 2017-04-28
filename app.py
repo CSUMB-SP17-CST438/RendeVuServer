@@ -111,12 +111,13 @@ def login():
     
     ###############################################
     try:
+        chapCount = 1
         info = request.json['chaperones']
         d = json.loads(info)
         
         for key,val in d.iteritems():
             for a in val:
-                log("chaperone: "+a['name'])
+                log("chaperone "+chapCount+": "+a['name'])
                 log("phone number: "+a['phone_number'])
     
     except KeyError:
