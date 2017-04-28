@@ -109,22 +109,6 @@ def login():
         'userID': request.json['userID'],
     }
     
-    ###############################################
-    try:
-        chapCount = 1
-        info = request.json['chaperones']
-        d = json.loads(info)
-        
-        for key,val in d.iteritems():
-            for a in val:
-                log("chaperone "+str(chapCount)+": "+a['name'])
-                log("phone number: "+a['phone_number'])
-                chapCount = chapCount + 1
-                
-    except KeyError:
-        log("keyerror from chaperone payload")
-    
-    ###################################################
     
     user_ids = []
     # message = models.Users.query.with_entities(models.Users.user_id).all()
@@ -179,9 +163,29 @@ def startDate():
         abort(400)
     
 
-        userID = request.json['userID']
+    userID = request.json['userID']
         
-        chaps = request.json['userID']['chap']
+        
+        
+    ###############################################
+    try:
+        chapCount = 1
+        info = request.json['chaperones']
+        d = json.loads(info)
+        
+        for key,val in d.iteritems():
+            for a in val:
+                log("chaperone "+str(chapCount)+": "+a['name'])
+                log("phone number: "+a['phone_number'])
+                chapCount = chapCount + 1
+                
+    except KeyError:
+        log("keyerror from chaperone payload")
+    
+    ###################################################
+        
+        #chaps = request.json['userID']['chap']
+        
         #ts = str(int(time.time()))
         # for chap in chaps:
         #     chap = models.Chap(userID, chap['name'], chap['number'], ts)
