@@ -119,7 +119,8 @@ def login():
             for a in val:
                 log("chaperone "+chapCount+": "+a['name'])
                 log("phone number: "+a['phone_number'])
-    
+                chapCount = chapCount + 1
+                
     except KeyError:
         log("keyerror from chaperone payload")
     
