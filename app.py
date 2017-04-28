@@ -109,6 +109,21 @@ def login():
         'userID': request.json['userID'],
     }
     
+    ###############################################
+    try:
+        info = request.json['chaperones']
+        d = json.loads(info)
+        
+        for key,val in d.iteritems():
+            for a in val:
+                log(a['name'])
+                log(a['phone_number'])
+    
+    except KeyError:
+        log("keyerror from chaperone payload")
+    
+    ###################################################
+    
     user_ids = []
     # message = models.Users.query.with_entities(models.Users.user_id).all()
     
