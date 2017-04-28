@@ -116,8 +116,8 @@ def login():
         
         for key,val in d.iteritems():
             for a in val:
-                log(a['name'])
-                log(a['phone_number'])
+                log("chaperone: "+a['name'])
+                log("phone number: "+a['phone_number'])
     
     except KeyError:
         log("keyerror from chaperone payload")
