@@ -10,8 +10,8 @@ from twilio.rest import Client
 app = Flask(__name__)
 
 #for heroku
-#app.config['SQLALCHEMY_DATABASE_URI'] = app.os.getenv('DATABASE_URL')
-# app.app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
 
 db = flask_sqlalchemy.SQLAlchemy(app)
 
@@ -109,6 +109,7 @@ def login():
         'userID': request.json['userID'],
     }
     
+    
     user_ids = []
     # message = models.Users.query.with_entities(models.Users.user_id).all()
     
@@ -141,19 +142,19 @@ def send():
         'userID': request.json['userID'],
     }
     
-    client.messages.create(
-    to="+18314285108",
-    from_="+18313461202",
-    body="This is the ship that made the Kessel Run in fourteen parsecs?")
+    # client.messages.create(
+    # to="+18314285108",
+    # from_="+18313461202",
+    # body="This is the ship that made the Kessel Run in fourteen parsecs?")
     
     message = userData['message']
     message = "this user has not contacted us with in the last 30min"
     
-    return 200
+    return jsonify({'status': 'success'}), 200
     
 @app.route('/api/v1.0/startDate', methods=['POST'])
 def startDate():
-    log("someone pinged login the api")
+    log("someone pinged startDate the api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -162,9 +163,30 @@ def startDate():
         abort(400)
     
 
-        userID = request.json['userID']
+    userID = request.json['userID']
         
-        chaps = request.json['userID']['chap']
+        
+    #parses through the chaperones
+    ###############################################
+    try:
+        chapCount = 1
+        info = request.json['chaperones']
+        log(info)
+        d = json.loads(info)
+        
+        for key,val in d.iteritems():
+            for a in val:
+                log("chaperone "+str(chapCount)+": "+a['name'])
+                log("phone number: "+a['phone_number'])
+                chapCount = chapCount + 1
+                
+    except KeyError:
+        log("keyerror from chaperone payload")
+    
+    ###################################################
+        
+        #chaps = request.json['userID']['chap']
+        
         #ts = str(int(time.time()))
         # for chap in chaps:
         #     chap = models.Chap(userID, chap['name'], chap['number'], ts)
@@ -172,11 +194,11 @@ def startDate():
          
         #  models.db.session.commit()
     
-    return 200
+    return jsonify({'status': 'success'}), 200
     
 @app.route('/api/v1.0/endDate', methods=['POST'])
 def endDate():
-    log("someone pinged login the api")
+    log("someone pinged the endDate api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -184,16 +206,16 @@ def endDate():
     if not request.json or not 'userID' in request.json:
         abort(400)
     
-        userID = request.json['userID']
+    userID = request.json['userID']
         
         #models.Pay.query.filter_by(userID=request.json['userID']).delete()
         # models.db.session.commit()
     
-    return 200
+    return jsonify({'status': 'success'}), 200
     
 @app.route('/api/v1.0/emergency', methods=['POST'])
 def emergency():
-    log("someone pinged login the api")
+    log("someone pinged the emergency api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
@@ -212,15 +234,32 @@ def emergency():
     
     # for number in numbers
     
-        # message = user + "Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-        # client.messages.create(
-        # to="+1"+number,
-        # from_="+18313461202",
-        # body=message)
+    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    client.messages.create(
+    to="+1"+"6197345766",
+    from_="+18313461202",
+    body=message)
     
     
+    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    client.messages.create(
+    to="+1"+"8314285108",
+    from_="+18313461202",
+    body=message)
     
-    return 200
+    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    client.messages.create(
+    to="+1"+"4152839158",
+    from_="+18313461202",
+    body=message)
+    
+    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    client.messages.create(
+    to="+1"+"5037537079",
+    from_="+18313461202",
+    body=message)
+    
+    return jsonify({'status': 'success'}), 200
 
 @app.route('/')
 def hello():
