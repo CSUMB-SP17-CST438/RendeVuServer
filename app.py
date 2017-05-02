@@ -194,7 +194,7 @@ def startDate():
          
         #  models.db.session.commit()
     
-    return 200
+    return jsonify({'status': 'success'}), 200
     
 @app.route('/api/v1.0/endDate', methods=['POST'])
 def endDate():
