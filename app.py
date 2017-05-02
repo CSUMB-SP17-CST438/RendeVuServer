@@ -128,7 +128,8 @@ def login():
         
     #tasks.append(task)
     #return jsonify({'data': {'userID': 'true'}}), 200
-    return jsonify('data', userSignedUp), 200
+    log({'data': userSignedUp})
+    return jsonify({'data': userSignedUp}), 200
 
 @app.route('/api/v1.0/send', methods=['POST'])
 def send():
