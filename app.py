@@ -9,6 +9,8 @@ from flask import Flask, render_template, request, jsonify, abort, make_response
 from twilio.rest import Client
 app = Flask(__name__)
 
+import models
+
 #for heroku
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://payinvader:girlscoutcookies1@localhost/postgres'
@@ -18,11 +20,6 @@ db = flask_sqlalchemy.SQLAlchemy(app)
 # for twilio
 account_sid = os.getenv("account_sid")
 auth_token = os.getenv("auth_token")
-
-
-
-
-
 
 # Find these values at https://twilio.com/user/account
 
@@ -84,16 +81,15 @@ def signup():
         'imgURL' : request.json['imgURL'],
     }
     
-    # new_user = models.Users(userData['userID'], 
-    #                         userData['firstName'], 
-    #                         userData['lastName'], 
-    #                         userData['email'],
-    #                         userData['phoneNumber'],
-    #                         userData['timestamp']
-    # )
-    # models.db.session.add(new_user)
-    # models.db.session.commit()
-    # #tasks.append(task)
+    new_user = models.Users(userData['userID'], 
+                            userData['firstName'], 
+                            userData['lastName'], 
+                            userData['email'],
+                            userData['imgURL'],
+                            userData['phoneNumber']
+    )
+    models.db.session.add(new_user)
+    models.db.session.commit()
     return jsonify({'data': userData}), 200
     
 @app.route('/api/v1.0/login', methods=['POST'])
@@ -109,24 +105,30 @@ def login():
         'userID': request.json['userID'],
     }
     
+    userSignedUp = {
+            'userID': 'false'
+        }
     
     user_ids = []
-    # message = models.Users.query.with_entities(models.Users.user_id).all()
+    message = models.Users.query.with_entities(models.Users.user_id).all()
     
-    # for theId in message:
-    #     print theId[0]
-    #     user_ids.append(str(theId[0]))
+    for theId in message:
+        log(theId[0])
+        user_ids.append(str(theId[0]))
     
-    # if str(userData['userID']) in user_ids:
-    #     userSignedUp = {
-    #         'userID': 'true'
-    #     }
-    # else:
-    #     userSignedUp = {
-    #         'userID': 'false'
-    #     }
-    # #tasks.append(task)
-    return jsonify({'data': {'userID': 'true'}}), 200
+    if str(userData['userID']) in user_ids:
+        userSignedUp = {
+            'userID': 'true'
+        }
+    else:
+        userSignedUp = {
+            'userID': 'false'
+        }
+        
+    #tasks.append(task)
+    #return jsonify({'data': {'userID': 'true'}}), 200
+    log({'data': userSignedUp})
+    return jsonify({'data': userSignedUp}), 200
 
 @app.route('/api/v1.0/send', methods=['POST'])
 def send():
@@ -237,25 +239,6 @@ def emergency():
     message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
     client.messages.create(
     to="+1"+"6197345766",
-    from_="+18313461202",
-    body=message)
-    
-    
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"8314285108",
-    from_="+18313461202",
-    body=message)
-    
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"4152839158",
-    from_="+18313461202",
-    body=message)
-    
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"5037537079",
     from_="+18313461202",
     body=message)
     
