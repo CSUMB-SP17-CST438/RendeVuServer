@@ -109,24 +109,29 @@ def login():
         'userID': request.json['userID'],
     }
     
+    userSignedUp = {
+            'userID': 'false'
+        }
     
     user_ids = []
-    # message = models.Users.query.with_entities(models.Users.user_id).all()
+    message = models.Users.query.with_entities(models.Users.user_id).all()
     
-    # for theId in message:
-    #     print theId[0]
-    #     user_ids.append(str(theId[0]))
+    for theId in message:
+        log(theId[0])
+        user_ids.append(str(theId[0]))
     
-    # if str(userData['userID']) in user_ids:
-    #     userSignedUp = {
-    #         'userID': 'true'
-    #     }
-    # else:
-    #     userSignedUp = {
-    #         'userID': 'false'
-    #     }
-    # #tasks.append(task)
-    return jsonify({'data': {'userID': 'true'}}), 200
+    if str(userData['userID']) in user_ids:
+        userSignedUp = {
+            'userID': 'true'
+        }
+    else:
+        userSignedUp = {
+            'userID': 'false'
+        }
+        
+    #tasks.append(task)
+    #return jsonify({'data': {'userID': 'true'}}), 200
+    return jsonify(userSignedUp), 200
 
 @app.route('/api/v1.0/send', methods=['POST'])
 def send():
@@ -237,25 +242,6 @@ def emergency():
     message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
     client.messages.create(
     to="+1"+"6197345766",
-    from_="+18313461202",
-    body=message)
-    
-    
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"8314285108",
-    from_="+18313461202",
-    body=message)
-    
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"4152839158",
-    from_="+18313461202",
-    body=message)
-    
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"5037537079",
     from_="+18313461202",
     body=message)
     
