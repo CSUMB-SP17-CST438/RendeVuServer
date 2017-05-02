@@ -81,16 +81,15 @@ def signup():
         'imgURL' : request.json['imgURL'],
     }
     
-    # new_user = models.Users(userData['userID'], 
-    #                         userData['firstName'], 
-    #                         userData['lastName'], 
-    #                         userData['email'],
-    #                         userData['phoneNumber'],
-    #                         userData['timestamp']
-    # )
-    # models.db.session.add(new_user)
-    # models.db.session.commit()
-    # #tasks.append(task)
+    new_user = models.Users(userData['userID'], 
+                            userData['firstName'], 
+                            userData['lastName'], 
+                            userData['email'],
+                            userData['phoneNumber'],
+                            userData['timestamp']
+    )
+    models.db.session.add(new_user)
+    models.db.session.commit()
     return jsonify({'data': userData}), 200
     
 @app.route('/api/v1.0/login', methods=['POST'])
