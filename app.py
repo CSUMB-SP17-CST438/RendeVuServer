@@ -218,7 +218,7 @@ def endDate():
     userID = request.json['userID']
     
     #deletes all chaperones associated with that user    
-    models.Chap.query.filter_by(userID=request.json['userID']).delete()
+    models.Chap.query.filter_by(user_id=request.json['userID']).delete()
     models.db.session.commit()
     
     return jsonify({'status': 'success'}), 200
