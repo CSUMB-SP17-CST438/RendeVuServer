@@ -150,7 +150,7 @@ def send():
     message = userData['message']
     message = "this user has not contacted us with in the last 30min"
     
-    return 200
+    return jsonify({'status': 'success'}), 200
     
 @app.route('/api/v1.0/startDate', methods=['POST'])
 def startDate():
@@ -166,7 +166,7 @@ def startDate():
     userID = request.json['userID']
         
         
-        
+    #parses through the chaperones
     ###############################################
     try:
         chapCount = 1
@@ -259,7 +259,7 @@ def emergency():
     from_="+18313461202",
     body=message)
     
-    return 200
+    return jsonify({'status': 'success'}), 200
 
 @app.route('/')
 def hello():
