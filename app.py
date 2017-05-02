@@ -206,12 +206,12 @@ def endDate():
     if not request.json or not 'userID' in request.json:
         abort(400)
     
-        userID = request.json['userID']
+    userID = request.json['userID']
         
         #models.Pay.query.filter_by(userID=request.json['userID']).delete()
         # models.db.session.commit()
     
-    return 200
+    return jsonify({'status': 'success'}), 200
     
 @app.route('/api/v1.0/emergency', methods=['POST'])
 def emergency():
