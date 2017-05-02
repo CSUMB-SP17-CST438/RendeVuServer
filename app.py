@@ -85,8 +85,8 @@ def signup():
                             userData['firstName'], 
                             userData['lastName'], 
                             userData['email'],
-                            userData['phoneNumber'],
-                            userData['timestamp']
+                            userData['imgURL'],
+                            userData['phoneNumber']
     )
     models.db.session.add(new_user)
     models.db.session.commit()
