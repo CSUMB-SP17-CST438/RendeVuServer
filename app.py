@@ -183,8 +183,8 @@ def startDate():
                 
                 #adds values to chaperones table
                 ts = str(int(time.time()))
-                chap = models.Chap(userID, chap['name'], chap['phone_number'], ts)
-                models.db.session.add(chaps)
+                aChap = models.Chap(userID, chap['name'], chap['phone_number'], ts)
+                models.db.session.add(aChap)
                 models.db.session.commit()
                 
                 chapCount = chapCount + 1
