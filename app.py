@@ -171,6 +171,7 @@ def startDate():
     try:
         chapCount = 1
         info = request.json['chaperones']
+        log(info)
         d = json.loads(info)
         
         for key,val in d.iteritems():
