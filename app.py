@@ -149,7 +149,6 @@ def send():
     # from_="+18313461202",
     # body="This is the ship that made the Kessel Run in fourteen parsecs?")
     
-    message = userData['message']
     message = "this user has not contacted us with in the last 30min"
     
     return jsonify({'status': 'success'}), 200
