@@ -132,7 +132,7 @@ def login():
 
 @app.route('/api/v1.0/send', methods=['POST'])
 def send():
-    log("someone pinged login the api")
+    log("someone pinged send the api")
     log(request.json)
     
     #if the json data does not have the 'usedID' header
