@@ -79,15 +79,15 @@ def create_task():
         #insert
         new_location = models.Location(request.json['userID'], 
                                 float(request.json['latitude']), 
-                                float(request.json['latitude']), 
+                                float(request.json['longitude']), 
                                 str(int(time.time()))
         )
         models.db.session.add(new_location)
         models.db.session.commit()
     #update
     else:
-        lat = userData['latitude']
-        lon = userData['longitude']
+        lat = request.json['latitude']
+        lon = request.json['longitude']
         
         models.Location.query.filter_by(userID=aUserID).update(dict(latitude=lat, longitude=lon))
         models.db.session.commit()
