@@ -296,8 +296,8 @@ def emergency():
             # str(row.chapName)
             # str(row.chapNumber)
             
-            #message = str(theUser.firstName) +" "+str(theUser.lastName)+ " has not checked in with RendeVu. They may be in distress. This is their last location: "+str(latitude)+", "+str(longitude)
-            message = "http://maps.google.com/maps?&z=15&q="+str(latitude)+"+"+str(longitude)+"&ll="+str(latitude)+"+"+str(longitude)
+            message = str(theUser.firstName) +" "+str(theUser.lastName)+ " has not checked in with RendeVu. They may be in distress. This is their last location: "+str(latitude)+", "+str(longitude)
+            message = message + " http://maps.google.com/maps?&z=5&q="+str(latitude)+"+"+str(longitude)+"&ll="+str(latitude)+"+"+str(longitude)
             log(row.chapNumber)
             
             client.messages.create(
