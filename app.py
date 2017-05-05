@@ -296,7 +296,7 @@ def emergency():
             # str(row.chapName)
             # str(row.chapNumber)
             
-            message = str(theUser.user_id) + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+str(latitude)+", "+str(longitude)
+            message = str(theUser.firstName) +" "+str(theUser.firstName)+ " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+str(latitude)+", "+str(longitude)
             
             log(row.chapNumber)
             
