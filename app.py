@@ -37,28 +37,9 @@ def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
 
-@app.route('/saltest', methods=['POST'])
+@app.route('/saltest', methods = ['POST', 'GET'])
 def saltest():
     chapsInDB = models.Chap.query.filter(user_id="DIiWPEoJQldpzoi6qrXNH5WzqO02").all()
-    
-    if chapsInDB is not None:
-        userInDBDict = {}
-        
-        count = 0
-        for row in chapsInDB:
-            # print row.owed_ID
-            userInDBDict[count] = {}
-            userInDBDict[count][row.user_id] = {}
-            userInDBDict[count][row.user_id]['user_id'] = row.user_id
-            userInDBDict[count][row.user_id]['chapName'] = row.chapName
-            userInDBDict[count][row.user_id]['chapNumber'] = row.chapNumber
-            count = count + 1
-            
-            log(str(row.chapName))
-            
-        return userInDBDict
-    else:
-        return None
     return "saltest"
     
 @app.route('/api/v1.0/postInfo', methods=['POST'])
