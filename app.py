@@ -36,6 +36,31 @@ client = Client(account_sid, auth_token)
 def not_found(error):
     return make_response(jsonify({'error': 'Not found'}), 404)
 
+
+@app.route('saltest', methods=['POST'])
+def saltest():
+    chapsInDB = models.Chap.query.filter(user_id="DIiWPEoJQldpzoi6qrXNH5WzqO02").all()
+    
+    if chapsInDB is not None:
+        userInDBDict = {}
+        
+        count = 0
+        for row in chapsInDB:
+            # print row.owed_ID
+            userInDBDict[count] = {}
+            userInDBDict[count][row.user_id] = {}
+            userInDBDict[count][row.user_id]['user_id'] = row.user_id
+            userInDBDict[count][row.user_id]['chapName'] = row.chapName
+            userInDBDict[count][row.user_id]['chapNumber'] = row.chapNumber
+            count = count + 1
+            
+            log(str(row.chapName))
+            
+        return userInDBDict
+    else:
+        return None
+    return "saltest"
+    
 @app.route('/api/v1.0/postInfo', methods=['POST'])
 def create_task():
     log("someone pinged the postInfo api")
@@ -239,7 +264,10 @@ def emergency():
     # message = userData['message']
     # message = "this user has not contacted us with in the last 30min"
     
-    # chapsInDB = models.Users.query.filter(models.Chap.userID.startswith(userID)).all()
+    chapsInDB = models.Users.query.filter(models.Chap.userID.startswith(userID)).all()
+    
+    aUserID = request.json['userID']
+    chapsInDB = models.Users.query.filter(user_id=aUserID).all()
     
     # for number in numbers
     
