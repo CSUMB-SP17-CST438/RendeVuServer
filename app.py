@@ -40,6 +40,7 @@ def not_found(error):
 @app.route('/saltest', methods = ['POST', 'GET'])
 def saltest():
     chapsInDB = models.Chap.query.filter_by(user_id="DIiWPEoJQldpzoi6qrXNH5WzqO02").all()
+    log(chapsInDB)
     if chapsInDB is not None:
         userInDBDict = {}
         
