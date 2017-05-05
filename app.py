@@ -77,10 +77,10 @@ def create_task():
     row = locationInDB
     if locationInDB is None:
         #insert
-        new_location = models.Location(str(row.userID), 
-                                float(row.latitude), 
-                                float(row.longitude), 
-                                str(row.time_stamp)
+        new_location = models.Location(request.json['userID'], 
+                                float(request.json['latitude']), 
+                                float(request.json['latitude']), 
+                                str(int(time.time()))
         )
         models.db.session.add(new_location)
         models.db.session.commit()
