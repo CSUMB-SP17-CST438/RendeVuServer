@@ -282,6 +282,8 @@ def emergency():
             
             message = str(aUser) + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+latitude+", "+longitude
             
+            log(row.chapNumber)
+            
             client.messages.create(
             to="+1"+ str(row.chapNumber),
             from_="+18313461202",
