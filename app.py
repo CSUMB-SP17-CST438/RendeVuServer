@@ -73,6 +73,7 @@ def create_task():
     aUserID = request.json['userID']
     #if user is not in the locations, then add, else 
     locationInDB = models.Location.query.filter_by(userID=aUserID).first()
+    log(locationInDB)
     row = locationInDB
     if locationInDB is None:
         #insert
