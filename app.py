@@ -280,11 +280,9 @@ def emergency():
     longitude = ""
     
     if locationInDB is not None:
-        for row in locationInDB:
             # print row.owed_ID
-            latitude = row.latitude
-            longitude = row.longitude
-            break
+            latitude = locationInDB.latitude
+            longitude = locationInDB.longitude
     else:
         return jsonify({'status': 'fail'}), 200
     
