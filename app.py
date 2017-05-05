@@ -265,8 +265,8 @@ def emergency():
     if locationInDB is not None:
         for row in locationInDB:
             # print row.owed_ID
-            latitude = str(row.latitude)
-            longitude str(row.longitude)
+            latitude = row.latitude
+            longitude row.longitude
             break
     else:
         return jsonify({'status': 'fail'}), 200
@@ -276,9 +276,6 @@ def emergency():
     if chapsInDB is not None:
         for row in chapsInDB:
             # print row.owed_ID
-            str(row.user_id)
-            str(row.chapName)
-            str(row.chapNumber)
             
             message = str(aUser) + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+latitude+", "+longitude
             
