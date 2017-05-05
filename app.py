@@ -82,7 +82,6 @@ def create_task():
         )
         models.db.session.add(new_location)
         models.db.session.commit()
-        break
     #update
     else:
         lat = userData['latitude']
