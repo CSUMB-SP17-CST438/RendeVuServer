@@ -276,6 +276,7 @@ def emergency():
     
     #get the last location from the user
     locationInDB = models.Location.query.filter_by(userID=aUserID).first()
+    theUser = models.Users.query.filter_by(user_id=aUserID).first()
     latitude = ""
     longitude = ""
     
@@ -295,7 +296,7 @@ def emergency():
             # str(row.chapName)
             # str(row.chapNumber)
             
-            message = str(aUser) + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+latitude+", "+longitude
+            message = str(theUser.user_id) + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+latitude+", "+longitude
             
             log(row.chapNumber)
             
