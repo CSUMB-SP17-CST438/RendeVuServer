@@ -255,25 +255,45 @@ def emergency():
     # message = userData['message']
     # message = "this user has not contacted us with in the last 30min"
     
-    chapsInDB = models.Users.query.filter(models.Chap.userID.startswith(userID)).all()
-    
     aUserID = request.json['userID']
+    
+    #get the last location from the user
+    locationInDB = models.Location.query.filter_by(userID=aUserID).first()
+    latitude = ""
+    longitude = ""
+    
+    if locationInDB is not None:
+        for row in locationInDB:
+            # print row.owed_ID
+            latitude = str(row.latitude)
+            longitude str(row.longitude)
+            break
+    else:
+        return jsonify({'status': 'fail'}), 200
+    
     chapsInDB = models.Chap.query.filter_by(user_id=aUserID).all()
     log(chapsInDB)
     if chapsInDB is not None:
-        userInDBDict = {}
-        
         for row in chapsInDB:
             # print row.owed_ID
             str(row.user_id)
             str(row.chapName)
             str(row.chapNumber)
+            
+            message = str(aUser) + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was "+latitude+", "+longitude
+            
+            client.messages.create(
+            to="+1"+ str(row.chapNumber),
+            from_="+18313461202",
+            body=message)
+    else:
+        return jsonify({'status': 'fail'}), 200
     
-    message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
-    client.messages.create(
-    to="+1"+"6197345766",
-    from_="+18313461202",
-    body=message)
+    # message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
+    # client.messages.create(
+    # to="+1"+"6197345766",
+    # from_="+18313461202",
+    # body=message)
     
     return jsonify({'status': 'success'}), 200
 
