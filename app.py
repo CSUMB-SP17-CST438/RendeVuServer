@@ -40,16 +40,18 @@ def not_found(error):
 @app.route('/saltest', methods = ['POST', 'GET'])
 def saltest():
     aUserID = "DIiWPEoJQldpzoi6qrXNH5WzqO02"
-    chapsInDB = models.Chap.query.filter_by(user_id=aUserID).all()
-    log(chapsInDB)
-    if chapsInDB is not None:
-        userInDBDict = {}
-        
-        for row in chapsInDB:
+    locationInDB = models.Location.query.filter_by(userID=aUserID).first()
+    latitude = ""
+    longitude = ""
+    
+    log(locationInDB)
+    
+    if locationInDB is not None:
+        for row in locationInDB:
             # print row.owed_ID
-            log(str(row.user_id))
-            log(str(row.chapName))
-            log(str(row.chapNumber))
+            latitude = row.latitude
+            longitude = row.longitude
+            break
     return "saltest"
     
 @app.route('/api/v1.0/postInfo', methods=['POST'])
