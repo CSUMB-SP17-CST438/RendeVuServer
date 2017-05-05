@@ -39,7 +39,7 @@ def not_found(error):
 
 @app.route('/saltest', methods = ['POST', 'GET'])
 def saltest():
-    chapsInDB = models.Chap.query.filter(user_id="DIiWPEoJQldpzoi6qrXNH5WzqO02").all()
+    chapsInDB = models.Chap.query.filter_by(user_id="DIiWPEoJQldpzoi6qrXNH5WzqO02").all()
     return "saltest"
     
 @app.route('/api/v1.0/postInfo', methods=['POST'])
