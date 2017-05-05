@@ -176,9 +176,16 @@ def startDate():
         d = json.loads(info)
         
         for key,val in d.iteritems():
-            for a in val:
-                log("chaperone "+str(chapCount)+": "+a['name'])
-                log("phone number: "+a['phone_number'])
+            for chap in val:
+                log("chaperone "+str(chapCount)+": "+chap['name'])
+                log("phone number: "+chap['phone_number'])
+                
+                #adds values to chaperones table
+                ts = str(int(time.time()))
+                aChap = models.Chap(userID, chap['name'], chap['phone_number'], ts)
+                models.db.session.add(aChap)
+                models.db.session.commit()
+                
                 chapCount = chapCount + 1
                 
     except KeyError:
@@ -208,9 +215,10 @@ def endDate():
         abort(400)
     
     userID = request.json['userID']
-        
-        #models.Pay.query.filter_by(userID=request.json['userID']).delete()
-        # models.db.session.commit()
+    
+    #deletes all chaperones associated with that user    
+    models.Chap.query.filter_by(user_id=request.json['userID']).delete()
+    models.db.session.commit()
     
     return jsonify({'status': 'success'}), 200
     
