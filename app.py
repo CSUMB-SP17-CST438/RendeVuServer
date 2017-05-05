@@ -74,16 +74,15 @@ def create_task():
     #if user is not in the locations, then add, else 
     locationInDB = models.Location.query.filter_by(userID=aUserID).first()
     if locationInDB is None:
-        for row in locationInDB:
         #insert
-            new_location = models.Location(str(row.userID), 
-                                    float(row.latitude), 
-                                    float(row.longitude), 
-                                    str(row.time_stamp)
-            )
-            models.db.session.add(new_location)
-            models.db.session.commit()
-            break
+        new_location = models.Location(str(row.userID), 
+                                float(row.latitude), 
+                                float(row.longitude), 
+                                str(row.time_stamp)
+        )
+        models.db.session.add(new_location)
+        models.db.session.commit()
+        break
     #update
     else:
         lat = userData['latitude']
