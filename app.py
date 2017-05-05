@@ -39,26 +39,17 @@ def not_found(error):
 
 @app.route('/saltest', methods = ['POST', 'GET'])
 def saltest():
-    chapsInDB = models.Chap.query.filter_by(user_id="DIiWPEoJQldpzoi6qrXNH5WzqO02").all()
+    aUserID = "DIiWPEoJQldpzoi6qrXNH5WzqO02"
+    chapsInDB = models.Chap.query.filter_by(user_id=aUserID).all()
     log(chapsInDB)
     if chapsInDB is not None:
         userInDBDict = {}
         
-        count = 0
         for row in chapsInDB:
             # print row.owed_ID
-            userInDBDict[count] = {}
-            userInDBDict[count][row.user_id] = {}
-            userInDBDict[count][row.user_id]['user_id'] = row.user_id
-            userInDBDict[count][row.user_id]['chapName'] = row.chapName
-            userInDBDict[count][row.user_id]['chapNumber'] = row.chapNumber
-            count = count + 1
-            
+            log(str(row.user_id))
             log(str(row.chapName))
-            
-    #     return userInDBDict
-    # else:
-    #     return None
+            log(str(row.chapNumber))
     return "saltest"
     
 @app.route('/api/v1.0/postInfo', methods=['POST'])
@@ -267,9 +258,16 @@ def emergency():
     chapsInDB = models.Users.query.filter(models.Chap.userID.startswith(userID)).all()
     
     aUserID = request.json['userID']
-    chapsInDB = models.Users.query.filter(user_id=aUserID).all()
-    
-    # for number in numbers
+    chapsInDB = models.Chap.query.filter_by(user_id=aUserID).all()
+    log(chapsInDB)
+    if chapsInDB is not None:
+        userInDBDict = {}
+        
+        for row in chapsInDB:
+            # print row.owed_ID
+            str(row.user_id)
+            str(row.chapName)
+            str(row.chapNumber)
     
     message = request.json['userID'] + " Has not checked in and the sevices has not recieved a location you might want to call them their last location was"
     client.messages.create(
