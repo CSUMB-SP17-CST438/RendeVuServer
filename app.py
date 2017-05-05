@@ -70,13 +70,26 @@ def create_task():
         'timestamp' : str(int(time.time()))
     }
     
-    # new_location = models.Location(userData['userID'], 
-    #                         userData['latitude'], 
-    #                         userData['longitude'], 
-    #                         userData['timestamp']
-    # )
-    # models.db.session.add(new_location)
-    # models.db.session.commit()
+    
+    #if user is not in the locations, then add, else 
+    locationInDB = models.Location.query.filter_by(userID=aUserID).first()
+    if locationInDB is None:
+        #insert
+        new_location = models.Location(userData['userID'], 
+                                userData['latitude'], 
+                                userData['longitude'], 
+                                userData['timestamp']
+        )
+        models.db.session.add(new_location)
+        models.db.session.commit()
+    #update
+    else:
+        lat = userData['latitude']
+        lon = userData['longitude']
+        
+        models.Location.query.filter_by(userID=aUserID).update(dict(latitude=lat, longitude=lon))
+        models.db.session.commit()
+        
     # #tasks.append(task)
     return jsonify({'data': locationData}), 200
     
