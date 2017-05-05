@@ -70,7 +70,7 @@ def create_task():
         'timestamp' : str(int(time.time()))
     }
     
-    
+    aUserID = request.json['userID']
     #if user is not in the locations, then add, else 
     locationInDB = models.Location.query.filter_by(userID=aUserID).first()
     if locationInDB is None:
